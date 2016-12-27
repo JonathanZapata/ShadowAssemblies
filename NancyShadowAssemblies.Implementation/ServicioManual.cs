@@ -15,7 +15,7 @@ namespace NancyShadowAssemblies.Implementation
             {
                 host.Start();
 
-                Console.WriteLine("Now listening, have fun!");
+                Console.WriteLine("Now listening, have fun! UPDATED");
 
                 Console.ReadLine();
             }

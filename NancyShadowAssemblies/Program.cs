@@ -14,18 +14,36 @@ namespace NancyShadowAssemblies {
 
             //Para probar sin el bloqueo del exe
             Console.WriteLine("Hola");
+            var cachePath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "ShadowCopyCache");
+            var pluginPath = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Plugins");
+            if (!Directory.Exists(cachePath))
+            {
+                Directory.CreateDirectory(cachePath);
+            }
+
+            if (!Directory.Exists(pluginPath))
+            {
+                Directory.CreateDirectory(pluginPath);
+            }
+            int result = 0, cont = 1;
+
             AppDomainSetup setup = new AppDomainSetup
             {
-                ShadowCopyFiles = "true" // This is key
+                CachePath = cachePath,
+                ShadowCopyFiles = "true", // This is key
+                //ShadowCopyDirectories = pluginPath
             };
 
-            domain = AppDomain.CreateDomain("Real AppDomain", null, setup);
+            while (cont <= 3)
+            {
+                domain = AppDomain.CreateDomain("Real AppDomain", null, setup);
 
-            // Execute your real application in the new app domain
-            int result = domain.ExecuteAssembly(
+                result = domain.ExecuteAssembly(
                 "NancyShadowAssemblies.Implementation.exe",
                 args
-            );
+                );
+                cont++;
+            }
 
             Console.WriteLine("Ha finalizado");
 

@@ -14,7 +14,7 @@ namespace NancyShadowAssemblies.Implementation {
                 host.Start();
                 while (cont <= contador)
                 {
-                    Console.WriteLine("Now listening, have fun!");
+                    Console.WriteLine("Now listening, have fun! UPDATED");
                     cont++;
                     Thread.Sleep(5000);
                 }
